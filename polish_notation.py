@@ -1,5 +1,5 @@
 def list_to_calc(inp):
-    tmp = 0
+    tmp = []
     symbols = []
     digits = []
     for item in inp:
@@ -22,28 +22,28 @@ def list_to_calc(inp):
     except AssertionError:
         return 'Для операции с числами нужно минимум два положительных числа :)'
     for digit in digits:
-        if tmp == 0:
-            tmp = int(digit)
+        if len(tmp) == 0:
+            tmp.append(int(digit))
         else:
             if len(symbols) != 0:
                 symbol = symbols.pop()
                 if symbol == '+':
-                    tmp += int(digit)
+                    tmp[0] += int(digit)
                 elif symbol == '-':
-                    tmp -= int(digit)
+                    tmp[0] -= int(digit)
                 elif symbol == '*':
-                    tmp *= int(digit)
+                    tmp[0] *= int(digit)
                 elif symbol == '/':
                     try:
-                        tmp //= int(digit)
+                        tmp[0] /= int(digit)
                     except ZeroDivisionError:
                         return 'На ноль делить нельзя'
-    res = tmp
+    res = tmp[0]
     return res
 
 
 def runner():
-    print('Программа ожидает на ввод')
+    print('Программа ожидает на ввод сначала операторы потом операнды')
     while True:
         inp = input('Ввод - ').split()
         if inp[0] == 'e':
