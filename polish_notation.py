@@ -23,7 +23,8 @@ def list_to_calc(inp):
     except AssertionError:
         return 'Вы не ввели операторов'
     try:
-        assert len(digits) > 1
+        if not len(digits) > 1:
+            raise AssertionError
     except AssertionError:
         return 'Для операции с числами нужно минимум два положительных числа :)'
     for digit in digits:
