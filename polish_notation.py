@@ -1,3 +1,20 @@
+import datetime as dt
+
+
+class TimeContextManager:
+    def __init__(self):
+        self.current_time = dt.datetime.today()
+
+    def __enter__(self):
+        print('Начало работы программы -', self.current_time.strftime('%H:%M:%S'))
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.end_time = dt.datetime.today()
+        print('Конец работы программы -', self.end_time.strftime('%H:%M:%S'))
+        self.time_worked = self.end_time - self.current_time
+        print('Время работы программы -', self.time_worked)
+
+
 def list_to_calc(inp):
     tmp = []
     symbols = []
@@ -49,13 +66,14 @@ def list_to_calc(inp):
 
 
 def runner():
-    print('Программа ожидает на ввод сначала операторы потом операнды')
-    while True:
-        inp = input('Ввод - ').split()
-        if inp[0] == 'e':
-            break
-        list_to_calc(inp)
-        print(list_to_calc(inp))
+    with TimeContextManager():
+        print('Программа ожидает на ввод сначала операторы потом операнды')
+        while True:
+            inp = input('Ввод - ').split()
+            if inp[0] == 'e':
+                break
+            list_to_calc(inp)
+            print(list_to_calc(inp))
 
 
 runner()
